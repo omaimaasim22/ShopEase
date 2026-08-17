@@ -1,0 +1,203 @@
+﻿@page
+@model ShopEase.Pages.AdminProducts.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+
+            <div>
+
+                <span class="products-label">
+                    ADMINISTRATION
+                </span>
+
+                <h1 class="products-title mb-2">
+                    Manage Products
+                </h1>
+
+                <p class="products-description">
+                    Add and manage products available in the ShopEase store.
+                </p>
+
+            </div>
+
+            <div>
+
+                <a asp-page="/AdminProducts/Create"
+                   class="btn btn-primary">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Add Product
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCTS TABLE -->
+        <div class="card border-0 shadow-sm admin-products-card">
+
+            <div class="table-responsive">
+
+                <table class="table mb-0 align-middle admin-products-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr>
+
+                                <!-- PRODUCT -->
+
+                                <td>
+
+                                    <div class="product-info">
+
+                                        <!-- SMALL PRODUCT IMAGE -->
+
+                                        <div class="product-table-image">
+
+                                            @if (!string.IsNullOrEmpty(product.ProductImage))
+                                            {
+                                                <img src="@product.ProductImage"
+                                                     alt="@product.ProductName" />
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-box-seam"></i>
+                                            }
+
+                                        </div>
+
+
+                                        <!-- PRODUCT DETAILS -->
+
+                                        <div class="product-details">
+
+                                            <div class="admin-product-name">
+                                                @product.ProductName
+                                            </div>
+
+                                            <small class="admin-product-id">
+                                                ID: @product.ProductID
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- CATEGORY -->
+
+                                <td>
+
+                                    <span class="admin-product-category">
+                                        @product.Category?.CategoryName
+                                    </span>
+
+                                </td>
+
+
+                                <!-- PRICE -->
+
+                                <td>
+
+                                    <span class="admin-product-price">
+                                        Rs. @product.Price.ToString("N2")
+                                    </span>
+
+                                </td>
+
+
+                                <!-- STOCK -->
+
+                                <td>
+
+                                    @if (product.StockQuantity > 0)
+                                    {
+                                        <span class="stock-badge">
+                                            @product.StockQuantity
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="stock-badge out-of-stock">
+                                            Out of stock
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- ACTIONS -->
+
+                                <td>
+
+                                    <div class="product-actions">
+
+                                        <!-- EDIT -->
+
+                                        <a asp-page="/AdminProducts/Edit"
+                                           asp-route-id="@product.ProductID"
+                                           class="btn btn-outline-primary btn-sm"
+                                           title="Edit Product">
+
+                                            <i class="bi bi-pencil"></i>
+
+                                        </a>
+
+
+                                        <!-- DELETE -->
+
+                                        <a asp-page="/AdminProducts/Delete"
+                                           asp-route-id="@product.ProductID"
+                                           class="btn btn-outline-danger btn-sm"
+                                           title="Delete Product">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

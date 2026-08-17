@@ -1,0 +1,363 @@
+﻿@page
+@model ShopEase.Pages.Receipt.IndexModel
+
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<section class="receipt-page py-5">
+
+    <div class="container">
+
+
+        <!-- =========================================
+             SUCCESS MESSAGE
+        ========================================== -->
+
+        <div class="receipt-success text-center">
+
+            <div class="receipt-success-icon">
+
+                <i class="bi bi-check-lg"></i>
+
+            </div>
+
+            <span class="receipt-label">
+                ORDER CONFIRMED
+            </span>
+
+            <h1 class="receipt-title">
+                Thank You for Your Order!
+            </h1>
+
+            <p class="receipt-description">
+                Your order has been successfully placed.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             RECEIPT
+        ========================================== -->
+
+        <div class="receipt-card">
+
+
+            <!-- =====================================
+                 RECEIPT HEADER
+            ====================================== -->
+
+            <div class="receipt-header">
+
+                <div>
+
+                    <span class="receipt-brand">
+                        SHOPEASE
+                    </span>
+
+                    <h2>
+                        Order Receipt
+                    </h2>
+
+                </div>
+
+
+                <div class="receipt-order-info">
+
+                    <div>
+                        <span>Order ID</span>
+
+                        <strong>
+                            #@Model.Order!.OrderID
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Order Date</span>
+
+                        <strong>
+                            @Model.Order.OrderDate.ToString("dd MMM yyyy, hh:mm tt")
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+
+
+            <!-- =====================================
+                 CUSTOMER INFORMATION
+            ====================================== -->
+
+            <div class="receipt-customer-section">
+
+                <h3>
+                    Customer Information
+                </h3>
+
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <span class="receipt-info-label">
+                            Full Name
+                        </span>
+
+                        <p>
+                            @Model.Order.Customer?.FullName
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <span class="receipt-info-label">
+                            Email
+                        </span>
+
+                        <p>
+                            @Model.Order.Customer?.Email
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <span class="receipt-info-label">
+                            Phone
+                        </span>
+
+                        <p>
+                            @Model.Order.Customer?.Phone
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <span class="receipt-info-label">
+                            Delivery Address
+                        </span>
+
+                        <p>
+                            @Model.Order.Customer?.Address
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+
+
+            <!-- =====================================
+                 ORDER ITEMS
+            ====================================== -->
+
+            <div class="receipt-items-section">
+
+                <h3>
+                    Order Details
+                </h3>
+
+
+                <div class="table-responsive">
+
+                    <table class="table receipt-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th class="text-center">
+                                    Quantity
+                                </th>
+
+                                <th class="text-end">
+                                    Unit Price
+                                </th>
+
+                                <th class="text-end">
+                                    Subtotal
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            @foreach (var item in Model.Order.OrderItems)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        <div class="receipt-product">
+
+                                            @if (!string.IsNullOrEmpty(
+                                                item.Product?.ProductImage))
+                                            {
+                                                <img src="@item.Product.ProductImage"
+                                                     alt="@item.Product.ProductName" />
+                                            }
+                                            else
+                                            {
+                                                <div class="receipt-product-placeholder">
+
+                                                    <i class="bi bi-box-seam"></i>
+
+                                                </div>
+                                            }
+
+
+                                            <div>
+
+                                                <strong>
+                                                    @item.Product?.ProductName
+                                                </strong>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td class="text-center">
+
+                                        @item.Quantity
+
+                                    </td>
+
+
+                                    <td class="text-end">
+
+                                        Rs. @item.UnitPrice.ToString("N2")
+
+                                    </td>
+
+
+                                    <td class="text-end fw-bold">
+
+                                        Rs.
+                                        @(
+                                            (item.Quantity * item.UnitPrice)
+                                                .ToString("N2")
+                                        )
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+
+
+            <!-- =====================================
+                 TOTAL
+            ====================================== -->
+
+            <div class="receipt-total-section">
+
+                <div>
+
+                    <span>
+                        Payment Method
+                    </span>
+
+                    <strong>
+                        @Model.Order.Payment?.PaymentMethod
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Order Status
+                    </span>
+
+                    <strong class="receipt-status">
+                        @Model.Order.OrderStatus
+                    </strong>
+
+                </div>
+
+
+                <div class="receipt-grand-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        Rs. @Model.Order.TotalAmount.ToString("N2")
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================================
+             ACTIONS
+        ========================================== -->
+
+        <div class="receipt-actions text-center">
+
+            <button type="button"
+                    onclick="window.print()"
+                    class="btn receipt-print-btn">
+
+                <i class="bi bi-printer"></i>
+
+                Print Receipt
+
+            </button>
+
+
+            <a asp-page="/Products/Index"
+               class="btn receipt-shopping-btn">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>

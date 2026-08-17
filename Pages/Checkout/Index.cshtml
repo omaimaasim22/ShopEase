@@ -1,0 +1,289 @@
+﻿@page
+@model ShopEase.Pages.Checkout.IndexModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<section class="checkout-page py-5">
+
+    <div class="container">
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <div class="checkout-header mb-5">
+
+            <span class="products-label">
+                SHOPEASE
+            </span>
+
+            <h1 class="products-title mt-2">
+                Checkout
+            </h1>
+
+            <p class="products-description">
+                Enter your details to complete your order.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             ERROR MESSAGE
+        ========================================== -->
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-4">
+        </div>
+
+
+        <div class="row g-5">
+
+
+            <!-- =========================================
+                 CUSTOMER INFORMATION
+            ========================================== -->
+
+            <div class="col-lg-7">
+
+                <div class="checkout-card">
+
+                    <h2 class="checkout-section-title">
+                        Customer Information
+                    </h2>
+
+                    <p class="checkout-section-description">
+                        Please provide your details for delivery.
+                    </p>
+
+
+                    <form method="post"
+                          asp-page-handler="ConfirmOrder">
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="checkout-form-group">
+
+                            <label asp-for="FullName"
+                                   class="checkout-label">
+
+                                Full Name
+
+                            </label>
+
+                            <input asp-for="FullName"
+                                   class="form-control checkout-input"
+                                   placeholder="Enter your full name" />
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="checkout-form-group">
+
+                            <label asp-for="Email"
+                                   class="checkout-label">
+
+                                Email Address
+
+                            </label>
+
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control checkout-input"
+                                   placeholder="example@email.com" />
+
+                            <span asp-validation-for="Email"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="checkout-form-group">
+
+                            <label asp-for="Phone"
+                                   class="checkout-label">
+
+                                Phone Number
+
+                            </label>
+
+                            <input asp-for="Phone"
+                                   class="form-control checkout-input"
+                                   placeholder="03XX-XXXXXXX" />
+
+                            <span asp-validation-for="Phone"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="checkout-form-group">
+
+                            <label asp-for="Address"
+                                   class="checkout-label">
+
+                                Delivery Address
+
+                            </label>
+
+                            <textarea asp-for="Address"
+                                      class="form-control checkout-input"
+                                      rows="4"
+                                      placeholder="Enter your complete delivery address">
+                            </textarea>
+
+                            <span asp-validation-for="Address"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+
+                        <!-- PAYMENT -->
+
+                        <div class="checkout-payment-box">
+
+                            <div class="checkout-payment-icon">
+
+                                <i class="bi bi-cash-stack"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Cash on Delivery
+                                </strong>
+
+                                <p class="mb-0">
+                                    Pay when your order arrives.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CONFIRM -->
+
+                        <button type="submit"
+                                class="btn checkout-confirm-btn w-100">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Confirm Order
+
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 ORDER SUMMARY
+            ========================================== -->
+
+            <div class="col-lg-5">
+
+                <div class="checkout-summary">
+
+                    <h2 class="checkout-summary-title">
+                        Order Summary
+                    </h2>
+
+
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <div class="checkout-summary-item">
+
+                            <div>
+
+                                <strong>
+                                    @item.Product?.ProductName
+                                </strong>
+
+                                <div class="checkout-summary-quantity">
+
+                                    Qty: @item.Quantity
+
+                                </div>
+
+                            </div>
+
+
+                            <span>
+
+                                Rs.
+                                @(
+                                    item.Product != null
+                                        ? (item.Quantity * item.Product.Price)
+                                            .ToString("N2")
+                                        : "0.00"
+                                )
+
+                            </span>
+
+                        </div>
+                    }
+
+
+                    <hr />
+
+
+                    <div class="checkout-total">
+
+                        <strong>
+                            Total
+                        </strong>
+
+                        <strong>
+                            Rs. @Model.Total.ToString("N2")
+                        </strong>
+
+                    </div>
+
+
+                    <a asp-page="/Cart/Index"
+                       class="btn checkout-back-btn w-100 mt-4">
+
+                        <i class="bi bi-arrow-left"></i>
+
+                        Back to Cart
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

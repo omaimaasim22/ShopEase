@@ -1,0 +1,285 @@
+﻿@page
+@model ShopEase.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="products-page">
+
+    <div class="container">
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <div class="text-center products-header">
+
+            <span class="products-label">
+                SHOPPEASE STORE
+            </span>
+
+            
+
+            <p class="products-description">
+                Discover quality products at great prices.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             PRODUCTS
+        ========================================== -->
+
+        <div class="row g-4">
+
+            @if (Model.Products != null && Model.Products.Any())
+            {
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="product-card h-100">
+
+
+                            <!-- =====================================
+                                 PRODUCT IMAGE
+                            ====================================== -->
+
+                            <div class="product-image">
+
+                                @if (!string.IsNullOrEmpty(product.ProductImage))
+                                {
+                                    <img src="@product.ProductImage"
+                                         alt="@product.ProductName"
+                                         class="img-fluid" />
+                                }
+                                else
+                                {
+                                    <i class="bi bi-box-seam product-placeholder-icon"></i>
+                                }
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 PRODUCT INFORMATION
+                            ====================================== -->
+
+                            <div class="product-content">
+
+
+                                <!-- CATEGORY -->
+
+                                <span class="product-category">
+
+                                    @product.Category?.CategoryName
+
+                                </span>
+
+
+                                <!-- NAME -->
+
+                                <h4 class="product-name">
+
+                                    @product.ProductName
+
+                                </h4>
+
+
+                                <!-- DESCRIPTION -->
+
+                                <p class="product-description">
+
+                                    @product.Description
+
+                                </p>
+
+
+                                <!-- =================================
+                                     PRICE + STOCK
+                                ================================== -->
+
+                                <div class="d-flex
+                                    justify-content-between
+                                    align-items-center
+                                    mb-3">
+
+                                    <span class="product-price">
+
+                                        Rs. @product.Price.ToString("N2")
+
+                                    </span>
+
+
+                                    @if (product.StockQuantity > 0)
+                                    {
+                                        <span class="product-stock">
+
+                                            @product.StockQuantity in stock
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="product-out-of-stock">
+
+                                            Out of stock
+
+                                        </span>
+                                    }
+
+                                </div>
+
+
+                                <!-- =================================
+                                     CART CONTROLS
+                                ================================== -->
+
+                                @if (product.StockQuantity > 0)
+                                {
+                                    <form method="post"
+                                          asp-page-handler="AddToCart"
+                                          class="product-cart-form">
+
+                                        <!-- PRODUCT ID -->
+
+                                        <input type="hidden"
+                                               name="productId"
+                                               value="@product.ProductID" />
+
+
+                                        <!--
+                                            This hidden field contains the
+                                            quantity selected by the customer.
+                                        -->
+
+                                        <input type="hidden"
+                                               name="quantity"
+                                               class="quantity-input"
+                                               value="@(Model.CartQuantities.ContainsKey(product.ProductID)
+                                                   ? Model.CartQuantities[product.ProductID]
+                                                   : 1)" />
+
+
+                                        <div class="product-cart-controls">
+
+
+                                            <!-- =================================
+                                                 QUANTITY CONTROL
+                                            ================================== -->
+
+                                            <div class="product-quantity-control">
+
+
+                                                <!-- MINUS -->
+
+                                                <button type="button"
+                                                        class="quantity-btn quantity-minus">
+
+                                                    −
+
+                                                </button>
+
+
+                                                <!-- QUANTITY -->
+
+                                                <span class="quantity-number">
+
+                                                    @(Model.CartQuantities.ContainsKey(product.ProductID)
+                                                        ? Model.CartQuantities[product.ProductID]
+                                                        : 1)
+
+                                                </span>
+
+
+                                                <!-- PLUS -->
+
+                                                <button type="button"
+                                                        class="quantity-btn quantity-plus">
+
+                                                    +
+
+                                                </button>
+
+                                            </div>
+
+
+                                            <!-- =================================
+                                                 ADD TO CART
+                                            ================================== -->
+
+                                            <button type="submit"
+                                                    class="product-cart-btn">
+
+                                                <i class="bi bi-cart-plus"></i>
+
+                                                Add to Cart
+
+                                            </button>
+
+                                        </div>
+
+                                    </form>
+                                }
+                                else
+                                {
+                                    <!-- =================================
+                                         OUT OF STOCK
+                                    ================================== -->
+
+                                    <button type="button"
+                                            class="product-cart-btn"
+                                            disabled>
+
+                                        <i class="bi bi-x-circle"></i>
+
+                                        Out of Stock
+
+                                    </button>
+                                }
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- =========================================
+                     NO PRODUCTS
+                ========================================== -->
+
+                <div class="col-12">
+
+                    <div class="text-center py-5">
+
+                        <i class="bi bi-box-seam"
+                           style="font-size: 4rem;">
+                        </i>
+
+                        <h3 class="mt-3">
+                            No products available
+                        </h3>
+
+                        <p class="text-muted">
+
+                            Products will appear here when the
+                            shop owner adds them.
+
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - ShopEase</title>
+
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <!-- Bootstrap Icons -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+
+    <!-- ShopEase CSS -->
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar navbar-expand-lg shop-navbar">
+
+        <div class="container">
+
+
+            <!-- BRAND -->
+
+            <a class="navbar-brand shop-brand"
+               asp-page="/Index">
+
+                <i class="bi bi-bag-check shop-brand-icon"></i>
+
+                <span>Shop</span><span class="brand-highlight">Ease</span>
+
+            </a>
+
+
+            <!-- MOBILE MENU -->
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- NAVIGATION -->
+
+            <div class="collapse navbar-collapse"
+                 id="mainNavbar">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                    <!-- HOME -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link shop-nav-link"
+                           asp-page="/Index">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- PRODUCTS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link shop-nav-link"
+                           asp-page="/Products/Index">
+
+                            Products
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- MY ORDERS -->
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/AdminProducts/Index">
+                        Manage Products
+                        </a>
+                    </li>
+
+
+                    <!-- CART -->
+
+                    <li class="nav-item ms-lg-3">
+
+                        <a class="btn shop-cart-btn"
+                           asp-page="/Cart/Index">
+
+                            <i class="bi bi-cart3"></i>
+
+                            <span>Cart</span>
+
+                            <span class="cart-count">
+                                0
+                            </span>
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         PAGE CONTENT
+    ====================================================== -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="shop-footer">
+
+        <div class="container">
+
+            <div class="row gy-4">
+
+
+                <!-- BRAND -->
+
+                <div class="col-lg-5">
+
+                    <a class="footer-brand"
+                       asp-page="/Index">
+
+                        <i class="bi bi-bag-check"></i>
+
+                        <span>Shop</span><span>Ease</span>
+
+                    </a>
+
+                    <p class="footer-description">
+
+                        A simple and reliable shopping experience
+                        for quality products at great prices.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- SHOP -->
+
+                <div class="col-6 col-lg-2">
+
+                    <h6 class="footer-heading">
+                        Shop
+                    </h6>
+
+
+                    <a asp-page="/Products/Index">
+
+                        Products
+
+                    </a>
+
+
+                    <a asp-page="/Products/Index">
+
+                        Categories
+
+                    </a>
+
+
+                    <a asp-page="/Cart/Index">
+
+                        Cart
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- CUSTOMER -->
+
+                <div class="col-6 col-lg-2">
+
+                    <h6 class="footer-heading">
+                        Customer
+                    </h6>
+
+
+                    <a asp-page="/Orders/Index">
+
+                        My Orders
+
+                    </a>
+
+
+                    <a href="#">
+
+                        Help Center
+
+                    </a>
+
+
+                    <a href="#">
+
+                        Contact Us
+
+                    </a>
+
+                </div>
+
+
+
+                <!-- INFORMATION -->
+
+                <div class="col-6 col-lg-3">
+
+                    <h6 class="footer-heading">
+                        Why ShopEase?
+                    </h6>
+
+
+                    <p>
+
+                        <i class="bi bi-shield-check"></i>
+
+                        Secure checkout
+
+                    </p>
+
+
+                    <p>
+
+                        <i class="bi bi-truck"></i>
+
+                        Reliable delivery
+
+                    </p>
+
+
+                    <p>
+
+                        <i class="bi bi-headset"></i>
+
+                        Customer support
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <hr class="footer-divider" />
+
+
+
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        flex-wrap
+                        gap-2">
+
+                <p class="footer-copyright mb-0">
+
+                    © 2026 ShopEase.
+                    All rights reserved.
+
+                </p>
+
+
+                <p class="footer-copyright mb-0">
+
+                    E-Commerce Management System
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         BOOTSTRAP JAVASCRIPT
+    ====================================================== -->
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/products.js" asp-append-version="true"></script>
+
+    <!-- =====================================================
+         PAGE-SPECIFIC SCRIPTS
+    ====================================================== -->
+
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

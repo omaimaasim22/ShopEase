@@ -1,0 +1,197 @@
+﻿@page
+@model ShopEase.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="home-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center min-vh-100 py-5">
+
+            <!-- LEFT SIDE: HERO -->
+
+            <div class="col-lg-7">
+
+                <span class="hero-label">
+                    WELCOME TO SHOPEASE
+                </span>
+
+                <h1 class="hero-title mt-3">
+
+                    Everything you need.
+                    <span>All in one place.</span>
+
+                </h1>
+
+                <p class="hero-description mt-4">
+
+                    Discover quality products at great prices.
+                    Shop easily, checkout securely and keep
+                    track of your orders.
+
+                </p>
+
+
+                <div class="mt-4">
+
+                    <a asp-controller="Products"
+                       asp-action="Index"
+                       class="btn hero-primary-btn btn-lg me-2">
+
+                        Shop Now
+                        <i class="bi bi-arrow-right"></i>
+
+                    </a>
+
+                    <a asp-page="/Products/Index"
+                       class="btn hero-secondary-btn btn-lg">
+
+                        View Products
+
+                    </a>
+
+                </div>
+
+
+                <!-- SHOPPING BAG ICON -->
+
+                <div class="hero-shopping-icon">
+
+                    <i class="bi bi-bag-heart"></i>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE: CATEGORIES -->
+
+            <div class="col-lg-5">
+
+                <div class="category-section">
+
+                    <span class="category-label">
+                        SHOP BY
+                    </span>
+
+                    <h2 class="category-title">
+                        Categories
+                    </h2>
+
+
+                    <div class="category-list">
+
+
+                        <!-- CLOTHING -->
+
+                        <div class="category-item">
+
+                            <div class="category-icon">
+
+                                <i class="bi bi-person-standing"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Clothing</h5>
+
+                                <p>
+                                    Fashion & apparel
+                                </p>
+
+                            </div>
+
+                            <i class="bi bi-arrow-right category-arrow"></i>
+
+                        </div>
+
+
+                        <!-- ELECTRONICS -->
+
+                        <div class="category-item">
+
+                            <div class="category-icon">
+
+                                <i class="bi bi-laptop"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Electronics</h5>
+
+                                <p>
+                                    Latest technology
+                                </p>
+
+                            </div>
+
+                            <i class="bi bi-arrow-right category-arrow"></i>
+
+                        </div>
+
+
+                        <!-- ACCESSORIES -->
+
+                        <div class="category-item">
+
+                            <div class="category-icon">
+
+                                <i class="bi bi-watch"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Accessories</h5>
+
+                                <p>
+                                    Complete your style
+                                </p>
+
+                            </div>
+
+                            <i class="bi bi-arrow-right category-arrow"></i>
+
+                        </div>
+
+
+                        <!-- SHOES -->
+
+                        <div class="category-item">
+
+                            <div class="category-icon">
+
+                                <i class="bi bi-bag"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Shoes</h5>
+
+                                <p>
+                                    Step up your style
+                                </p>
+
+                            </div>
+
+                            <i class="bi bi-arrow-right category-arrow"></i>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
